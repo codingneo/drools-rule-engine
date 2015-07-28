@@ -1,0 +1,31 @@
+package com.ps
+ 
+import com.ps.util.TransactionStatus;
+import com.ps.entity.Transaction;
+import com.ps.util.TranObjectContainer;
+
+rule "Extract New Transaction"
+	when
+		TranObjectContainer(newTransaction.status == TransactionStatus.INIT, $trans:newTransaction)
+	then
+		insert($trans);
+end
+
+rule "Usage Eligible"
+    when	
+        $tran : Transaction(user.numOfGoodTrans > 3 && user.totalSpend > 1000)
+    then
+        System.out.println( "inside Usage Eligible rule: "+$tran );
+  
+        $tran.setStatus(TransactionStatus.ELIGIBLE);
+        
+end
+
+rule "Usage Review"
+    when
+        $tran : Transaction( status == TransactionStatus.INIT && (user.numOfGoodTrans <= 3 || user.totalSpend <= 1000))  
+    then
+        System.out.println( "inside Usage Review rule: "+$tran );
+  
+        $tran.setStatus(TransactionStatus.REVIEW);
+end
