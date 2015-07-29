@@ -4,7 +4,7 @@
 
 1. run "mvn clean install"
 
-2. copy rule-engine-0.1.0-jar-with-dependencies to the server
+2. copy rule-engine-0.1.0.jar to the server
 
 3. Stop the running instance on the server
 
@@ -20,8 +20,8 @@
 
 ##The 1st Draft
 
-1. Due to time contraint, User/Merchant records are simulated in a Stub class: https://github.com/ahhuisg/PSRuleEngine/blob/master/src/main/java/com/ps/dao/TestDBManagerStub.java
+1. Due to time contraint, User/Merchant records are simulated in a Stub class: src/main/java/com/ps/dao/TestDBManagerStub.java
 
-2. The Domain Objects are at https://github.com/ahhuisg/PSRuleEngine/blob/master/src/main/java/com/ps/entity
+2. The Domain Objects are at src/main/java/com/ps/entity
 
-3. The instruction of how to test the rules are at https://github.com/ahhuisg/PSRuleEngine/tree/master/test_cases
+3. The instruction of how to test the rules are at test_cases

@@ -6,9 +6,9 @@ import com.ps.util.TranObjectContainer;
 
 rule "Extract New Transaction"
 	when
-		TranObjectContainer(newTransaction.status == TransactionStatus.INIT, $trans:newTransaction)
+		TranObjectContainer(newTransaction.status == TransactionStatus.INIT, $tran:newTransaction)
 	then
-		insert($trans);
+		insert($tran);
 end
 
 rule "Usage Eligible"

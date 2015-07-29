@@ -7,17 +7,25 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import com.ps.entity.Merchant;
 import com.ps.entity.Transaction;
 import com.ps.entity.User;
 import com.ps.util.TransactionStatus;
+
+import org.apache.log4j.Logger;
 
 /**
  * Temporary class to simulate Data records
  * 
  *
  */
+@Component
 public class TestDBManagerStub implements DBManager {
+	
+	private final Logger logger = Logger.getLogger(this.getClass());
+	
 	private static Map<String,User> userDB = new HashMap<String,User>();
 	private static Map<String,Merchant> merchantDB = new HashMap<String,Merchant>();
 	
@@ -46,8 +54,6 @@ public class TestDBManagerStub implements DBManager {
 	@Override
 	public List<Transaction> retrieveHistoricTransactions(String userId, Date cutoff) {
 		List<Transaction> result = new ArrayList<Transaction>();
-		
-		System.out.println("transDB.values() size: "+transDB.values().size());
 		
 		for(Transaction t: transDB.values()){
 			System.out.println("t.getUser().getId().equals(userId): "+t.getUser().getId().equals(userId));

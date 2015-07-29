@@ -1,5 +1,6 @@
 package com.ps.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,14 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ps.dao.DBManager;
-import com.ps.dao.TestDBManagerStub;
 import com.ps.entity.User;
 
+import org.apache.log4j.Logger;
 
 @RestController
 public class UserController {
 	
-	private DBManager dbManager = new TestDBManagerStub();
+	private final Logger logger = Logger.getLogger(this.getClass());
+	
+	@Autowired
+	private DBManager dbManager;
 	
     @RequestMapping("/user")
     public User getUser(@RequestParam(value="id") String userId) {
@@ -34,7 +38,7 @@ public class UserController {
     	   throw new RuntimeException("User does not exist!");
        }
        
-       System.out.println("Inside updateUser: "+user);
+       logger.debug("Inside updateUser: "+user);
        
        dbManager.updateUser(user);
        

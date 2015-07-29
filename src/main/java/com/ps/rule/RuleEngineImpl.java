@@ -3,10 +3,12 @@ package com.ps.rule;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.springframework.stereotype.Component;
 
 import com.ps.util.TranObjectContainer;
 import com.ps.util.TransactionStatus;
 
+@Component
 public class RuleEngineImpl implements RuleEngine {
 
 	private KieContainer kContainer;
