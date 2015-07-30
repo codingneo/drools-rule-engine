@@ -29,20 +29,13 @@ public class RuleEngineImpl implements RuleEngine {
 
 		if(kContainer==null) {
 			
-			KieServices ks = KieServices.Factory.get();
-			kContainer = ks.getKieClasspathContainer();
-						
-			sch.scheduleAtFixedRate(new ReloadRules(), 0, 10, TimeUnit.SECONDS);
-			
-			/*
 			KieServices kieServices = KieServices.Factory.get();
-			ReleaseId releaseId = kieServices.newReleaseId( "com.paysense", "rules", "1.0.1" );
+			ReleaseId releaseId = kieServices.newReleaseId( "com.paysense", "rules", "LATEST" );
 			kContainer = kieServices.newKieContainer( releaseId );
 			
 			KieScanner kScanner = kieServices.newKieScanner( kContainer );
 			// Start the KieScanner polling the Maven repository every 10 seconds
-			kScanner.start( 5000L );
-			*/
+			kScanner.start( 10000L );
 		}
 		
 		KieSession session = this.newRuleSession();
@@ -55,22 +48,5 @@ public class RuleEngineImpl implements RuleEngine {
 
 	private KieSession newRuleSession(){
 		return kContainer.newKieSession("ksession-rules"); 
-	}
-	
-	private static class ReloadRules implements Runnable {
-
-		@Override
-		public void run() {
-			System.out.println("************Reloading Rules1****************");
-			
-			KieServices ks = KieServices.Factory.get();
-			KieRepository kr = ks.getRepository();
-	
-			File file = new File("/Users/yanhchen/.m2/repository/com/paysense/rules/1.0.1/rules-1.0.1.jar");
-			KieModule kModule = kr.addKieModule(ks.getResources().newFileSystemResource(file));
-			
-			kContainer = ks.newKieContainer(kModule.getReleaseId());
-		}
-	
 	}
 }

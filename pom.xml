@@ -61,13 +61,13 @@
 			<artifactId>drools-compiler</artifactId>
 			<version>${droolsVersion}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.kie</groupId>
-			<artifactId>kie-ci</artifactId>
-			<version>6.3.0.Beta2</version>
-		</dependency>
 		
+		<dependency>
+		  <groupId>org.kie</groupId>
+		  <artifactId>kie-ci</artifactId>
+		  <version>${droolsVersion}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.paysense</groupId>
 			<artifactId>rules</artifactId>
