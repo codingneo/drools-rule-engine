@@ -7,14 +7,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.ps.entity.Merchant;
 import com.ps.entity.Transaction;
+import com.ps.entity.TransactionStatus;
 import com.ps.entity.User;
-import com.ps.util.TransactionStatus;
-
-import org.apache.log4j.Logger;
+import com.ps.util.TimeUtil;
 
 /**
  * Temporary class to simulate Data records
@@ -57,8 +57,8 @@ public class TestDBManagerStub implements DBManager {
 		
 		for(Transaction t: transDB.values()){
 			System.out.println("t.getUser().getId().equals(userId): "+t.getUser().getId().equals(userId));
-			System.out.println("t.getDate().after(cutoff): "+t.getDate().after(cutoff));
-			if(t.getUser().getId().equals(userId) && t.getDate().after(cutoff)){
+			Date date = TimeUtil.parseDate(t.getDateAsString());
+			if(t.getUser().getId().equals(userId) && date.after(cutoff)){
 				result.add(t);
 			}
 		}

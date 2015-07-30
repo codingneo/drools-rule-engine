@@ -1,5 +1,6 @@
 package com.ps.web;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -13,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ps.dao.DBManager;
 import com.ps.entity.Merchant;
+import com.ps.entity.TranObjectContainer;
 import com.ps.entity.Transaction;
+import com.ps.entity.TransactionStatus;
 import com.ps.entity.User;
 import com.ps.rule.RuleEngine;
 import com.ps.util.TimeUtil;
-import com.ps.util.TranObjectContainer;
-import com.ps.util.TransactionStatus;
 
 
 @RestController
@@ -57,7 +58,8 @@ public class RuleManagerController {
     	container.setNewTransaction(tran);
     	
     	//populate historic transactions before the cutoff time
-    	List<Transaction> histTrans = dbManager.retrieveHistoricTransactions(tran.getUser().getId(), TimeUtil.getCutoffDate(tran.getDate()));
+    	Date date = TimeUtil.parseDate(tran.getDateAsString());
+    	List<Transaction> histTrans = dbManager.retrieveHistoricTransactions(tran.getUser().getId(), TimeUtil.getCutoffDate(date));
     	container.setOldTransactions(histTrans);
  
     	logger.debug("histTrans size: "+histTrans.size());

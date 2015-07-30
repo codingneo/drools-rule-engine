@@ -1,4 +1,4 @@
-# PSRuleEngine
+# RuleEngine
 
 ##Steps to deploy changes:
 

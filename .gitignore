@@ -4,3 +4,4 @@
 target/
 .class
 .DS_Store
+logs/
