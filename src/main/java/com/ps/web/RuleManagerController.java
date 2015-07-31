@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +33,9 @@ public class RuleManagerController {
 	
 	@Autowired
 	private RuleEngine ruleEngine; 
+	
+	@Value("${rules.velocity.interval}")
+	private int velocityInterval;
     
     @RequestMapping(value = "/transact", method = RequestMethod.POST)
     public ResponseEntity<TransactionStatus> transact(@RequestBody Transaction tran) {
@@ -59,7 +63,7 @@ public class RuleManagerController {
     	
     	//populate historic transactions before the cutoff time
     	Date date = TimeUtil.parseDate(tran.getDateAsString());
-    	List<Transaction> histTrans = dbManager.retrieveHistoricTransactions(tran.getUser().getId(), TimeUtil.getCutoffDate(date));
+    	List<Transaction> histTrans = dbManager.retrieveHistoricTransactions(tran.getUser().getId(), TimeUtil.getCutoffDate(date,velocityInterval));
     	container.setOldTransactions(histTrans);
  
     	logger.debug("histTrans size: "+histTrans.size());

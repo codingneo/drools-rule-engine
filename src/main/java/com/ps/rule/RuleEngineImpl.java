@@ -1,13 +1,11 @@
 package com.ps.rule;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
 import org.kie.api.builder.ReleaseId;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.ps.entity.TranObjectContainer;
@@ -18,7 +16,17 @@ public class RuleEngineImpl implements RuleEngine {
 
 	private static KieContainer kContainer;
 	
-	private ScheduledThreadPoolExecutor sch = (ScheduledThreadPoolExecutor)Executors.newScheduledThreadPool(5);
+	@Value("${rules.groupId}")
+	private String rulesGroupId;
+
+	@Value("${rules.artifactId}")
+	private String rulesArtifactId;
+
+	@Value("${rules.version}")
+	private String rulesVersion;	
+
+	@Value("${kiescanner.interval}")
+	private int kiescannerInterval;	
 	
 	@Override
 	public TransactionStatus process(TranObjectContainer container) {
@@ -26,12 +34,12 @@ public class RuleEngineImpl implements RuleEngine {
 		if(kContainer==null) {
 			
 			KieServices kieServices = KieServices.Factory.get();
-			ReleaseId releaseId = kieServices.newReleaseId( "com.paysense", "rules", "1.0-SNAPSHOT" );
+			ReleaseId releaseId = kieServices.newReleaseId(rulesGroupId, rulesArtifactId, rulesVersion);
 			kContainer = kieServices.newKieContainer( releaseId );
 			
 			KieScanner kScanner = kieServices.newKieScanner( kContainer );
 			// Start the KieScanner polling the Maven repository every 10 seconds
-			kScanner.start( 10000L );
+			kScanner.start( kiescannerInterval * 1000 );
 		}
 		
 		KieSession session = this.newRuleSession();

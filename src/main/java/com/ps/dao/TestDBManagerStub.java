@@ -56,7 +56,6 @@ public class TestDBManagerStub implements DBManager {
 		List<Transaction> result = new ArrayList<Transaction>();
 		
 		for(Transaction t: transDB.values()){
-			System.out.println("t.getUser().getId().equals(userId): "+t.getUser().getId().equals(userId));
 			Date date = TimeUtil.parseDate(t.getDateAsString());
 			if(t.getUser().getId().equals(userId) && date.after(cutoff)){
 				result.add(t);
