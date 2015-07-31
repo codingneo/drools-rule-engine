@@ -5,7 +5,7 @@
 
 	<groupId>com.paysense</groupId>
 	<artifactId>rule-engine</artifactId>
-	<version>1.0.1</version>
+	<version>1.0-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -71,7 +71,7 @@
 		<dependency>
 			<groupId>com.paysense</groupId>
 			<artifactId>rules</artifactId>
-			<version>1.0.1</version>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>		
 	</dependencies>
 

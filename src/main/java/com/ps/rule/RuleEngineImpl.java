@@ -1,13 +1,9 @@
 package com.ps.rule;
 
-import java.io.File;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import org.kie.api.KieServices;
-import org.kie.api.builder.KieModule;
-import org.kie.api.builder.KieRepository;
 import org.kie.api.builder.KieScanner;
 import org.kie.api.builder.ReleaseId;
 import org.kie.api.runtime.KieContainer;
@@ -30,7 +26,7 @@ public class RuleEngineImpl implements RuleEngine {
 		if(kContainer==null) {
 			
 			KieServices kieServices = KieServices.Factory.get();
-			ReleaseId releaseId = kieServices.newReleaseId( "com.paysense", "rules", "LATEST" );
+			ReleaseId releaseId = kieServices.newReleaseId( "com.paysense", "rules", "1.0-SNAPSHOT" );
 			kContainer = kieServices.newKieContainer( releaseId );
 			
 			KieScanner kScanner = kieServices.newKieScanner( kContainer );
