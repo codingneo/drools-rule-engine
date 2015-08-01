@@ -1,4 +1,4 @@
-package com.ps.util;
+package com.paysense.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

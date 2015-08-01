@@ -1,4 +1,4 @@
-package com.ps.web;
+package com.paysense.web;
 
 import java.util.Date;
 import java.util.List;
@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ps.dao.DBManager;
-import com.ps.entity.Merchant;
-import com.ps.entity.TranObjectContainer;
-import com.ps.entity.Transaction;
-import com.ps.entity.TransactionStatus;
-import com.ps.entity.User;
-import com.ps.rule.RuleEngine;
-import com.ps.util.TimeUtil;
+import com.paysense.dao.DBManager;
+import com.paysense.rule.RuleEngine;
+import com.paysense.util.TimeUtil;
+import com.paysense.entity.Merchant;
+import com.paysense.entity.TranObjectContainer;
+import com.paysense.entity.Transaction;
+import com.paysense.entity.User;
 
 
 @RestController
@@ -38,7 +37,7 @@ public class RuleManagerController {
 	private int velocityInterval;
     
     @RequestMapping(value = "/transact", method = RequestMethod.POST)
-    public ResponseEntity<TransactionStatus> transact(@RequestBody Transaction tran) {
+    public ResponseEntity<Integer> transact(@RequestBody Transaction tran) {
     
     	TranObjectContainer container = createTranContainer(tran);
     	
@@ -46,7 +45,7 @@ public class RuleManagerController {
     	
     	dbManager.insertTransaction(tran);
     	
-        return new ResponseEntity<TransactionStatus>(tran.getStatus(), HttpStatus.OK);
+        return new ResponseEntity<Integer>(tran.getStatus(), HttpStatus.OK);
     }
     
     private TranObjectContainer createTranContainer(Transaction tran){

@@ -1,4 +1,4 @@
-package com.ps.util;
+package com.paysense.util;
 
 public class LocationUtil {
 	

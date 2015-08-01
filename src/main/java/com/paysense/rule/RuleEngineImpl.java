@@ -1,4 +1,4 @@
-package com.ps.rule;
+package com.paysense.rule;
 
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
@@ -8,8 +8,7 @@ import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.ps.entity.TranObjectContainer;
-import com.ps.entity.TransactionStatus;
+import com.paysense.entity.TranObjectContainer;
 
 @Component
 public class RuleEngineImpl implements RuleEngine {
@@ -29,7 +28,7 @@ public class RuleEngineImpl implements RuleEngine {
 	private int kiescannerInterval;	
 	
 	@Override
-	public TransactionStatus process(TranObjectContainer container) {
+	public int process(TranObjectContainer container) {
 
 		if(kContainer==null) {
 			

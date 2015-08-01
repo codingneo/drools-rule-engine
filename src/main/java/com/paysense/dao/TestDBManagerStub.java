@@ -1,4 +1,4 @@
-package com.ps.dao;
+package com.paysense.dao;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,11 +10,10 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.ps.entity.Merchant;
-import com.ps.entity.Transaction;
-import com.ps.entity.TransactionStatus;
-import com.ps.entity.User;
-import com.ps.util.TimeUtil;
+import com.paysense.entity.Merchant;
+import com.paysense.entity.Transaction;
+import com.paysense.entity.User;
+import com.paysense.util.TimeUtil;
 
 /**
  * Temporary class to simulate Data records
@@ -86,7 +85,7 @@ public class TestDBManagerStub implements DBManager {
 		
 		//if the transaction is eligible, increase total spend for the user
 		//increase number of good transactions of the user
-		if(transaction.getStatus().equals(TransactionStatus.ELIGIBLE)){
+		if(transaction.getStatus()==1){
 			User user = userDB.get(transaction.getUser().getId());
 			
 			user.setTotalSpend(user.getTotalSpend() + transaction.getAmount());

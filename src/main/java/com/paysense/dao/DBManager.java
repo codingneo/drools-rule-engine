@@ -1,11 +1,11 @@
-package com.ps.dao;
+package com.paysense.dao;
 
 import java.util.Date;
 import java.util.List;
 
-import com.ps.entity.Merchant;
-import com.ps.entity.Transaction;
-import com.ps.entity.User;
+import com.paysense.entity.Merchant;
+import com.paysense.entity.Transaction;
+import com.paysense.entity.User;
 
 public interface DBManager {
 	

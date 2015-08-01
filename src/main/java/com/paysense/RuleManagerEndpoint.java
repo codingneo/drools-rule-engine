@@ -1,4 +1,4 @@
-package com.ps;
+package com.paysense;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
