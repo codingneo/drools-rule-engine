@@ -41,15 +41,11 @@ public class RuleEngineImpl implements RuleEngine {
 			kScanner.start( kiescannerInterval * 1000 );
 		}
 		
-		KieSession session = this.newRuleSession();
+		KieSession session = kContainer.newKieSession();
 		session.insert(container);
 		
 		session.fireAllRules();
 		
 		return container.getNewTransaction().getStatus();
-	}
-
-	private KieSession newRuleSession(){
-		return kContainer.newKieSession("ksession-rules"); 
 	}
 }
