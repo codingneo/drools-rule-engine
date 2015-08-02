@@ -38,16 +38,13 @@ public class RuleEngineImpl implements RuleEngine {
 
 	private ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(3);
 
-	public RuleEngineImpl() {
-		logger.info("Inside RuleEngineImpl constructor");
-		this.scheduledThreadPool.scheduleAtFixedRate(
-			new InitKieContainerWorker(), 10, 10, TimeUnit.SECONDS);
-	}
-
 	@Override
 	public int process(TranObjectContainer container) {
 
-		kContainer = initKieContainer();
+		if(kContainer == null) {
+			kContainer = initKieContainer();
+			scheduledThreadPool.scheduleAtFixedRate(new InitKieContainerWorker(), kiescannerInterval, kiescannerInterval, TimeUnit.SECONDS);
+		}
 
 		KieSession session = kContainer.newKieSession();
 		session.insert(container);
