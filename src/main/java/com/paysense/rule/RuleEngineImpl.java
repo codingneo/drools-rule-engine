@@ -40,7 +40,8 @@ public class RuleEngineImpl implements RuleEngine {
 
 	public RuleEngineImpl() {
 		logger.info("Inside RuleEngineImpl constructor");
-		this.scheduledThreadPool.scheduleAtFixedRate(new InitKieContainerWorker(), 10, 10, TimeUnit.SECONDS);
+		this.scheduledThreadPool.scheduleAtFixedRate(
+			new InitKieContainerWorker(), 10, 10, TimeUnit.SECONDS);
 	}
 
 	@Override

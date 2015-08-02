@@ -6,6 +6,7 @@
 	<groupId>com.paysense</groupId>
 	<artifactId>rule-engine</artifactId>
 	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -14,8 +15,10 @@
 	</parent>
 
 	<properties>
-		<java.version>1.7</java.version>
+		<!--<java.version>1.7</java.version>-->
 		<droolsVersion>6.2.0.Final</droolsVersion>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<start-class>com.paysense.RuleManagerEndpoint</start-class>
 	</properties>
 
 	<dependencies>
@@ -23,7 +26,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-remote-shell</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>	
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter</artifactId>
