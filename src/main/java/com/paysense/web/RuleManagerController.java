@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.paysense.dao.DBManager;
 import com.paysense.rule.RuleEngine;
+import com.paysense.util.PSResponse;
 import com.paysense.util.TimeUtil;
 import com.paysense.entity.Merchant;
 import com.paysense.entity.TranObjectContainer;
@@ -37,7 +38,7 @@ public class RuleManagerController {
 	private int velocityInterval;
     
     @RequestMapping(value = "/transact", method = RequestMethod.POST)
-    public ResponseEntity<Integer> transact(@RequestBody Transaction tran) {
+    public ResponseEntity<String> transact(@RequestBody Transaction tran) {
     
     	TranObjectContainer container = createTranContainer(tran);
     	
@@ -45,7 +46,9 @@ public class RuleManagerController {
     	
     	dbManager.insertTransaction(tran);
     	
-        return new ResponseEntity<Integer>(tran.getStatus(), HttpStatus.OK);
+    	PSResponse res = PSResponse.getPSResponseByCode(tran.getStatus());
+    	
+        return new ResponseEntity<String>(res.toString(), HttpStatus.OK);
     }
     
     private TranObjectContainer createTranContainer(Transaction tran){
