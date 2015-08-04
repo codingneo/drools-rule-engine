@@ -3,7 +3,6 @@ package com.paysense.dao;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -23,51 +22,9 @@ import com.paysense.entity.Merchant;
 import com.paysense.entity.Transaction;
 import com.paysense.entity.User;
 import com.paysense.entity.WhiteListObject;
-import com.paysense.util.PSResponse;
 
 @Component
 public class MongoDBManager implements DBManager {
-
-	public static void main(String[] args) throws UnknownHostException {
-
-
-		//MongoCredential credential = MongoCredential.createCredential("", "ps", "".toCharArray());
-		
-		MongoClient mongoClient = new MongoClient(new ServerAddress("localhost", 27017));
-		
-		DB db = mongoClient.getDB("ps");
-		
-		/*
-		DBCollection coll = db.getCollection(COLLECTION_TRANS);
-		
-		BasicDBObject query = new BasicDBObject("id","T1");
-		DBCursor cursor = coll.find(query);
-
-	    try {
-	       while(cursor.hasNext()) {
-	          DBObject dbobj = cursor.next();
-	        //Converting BasicDBObject to a custom Class(Employee)
-	          Transaction emp = (new Gson()).fromJson(dbobj.toString(), Transaction.class);
-	          System.out.println("test1: "+emp);
-	       }
-	    } finally {
-	       cursor.close();
-	    }	
-	    */
-		
-		/*
-		Transaction tran = new Transaction();
-		tran.setId("T1");
-	
-		tran.setUserId("U1");
-
-		//Converting a custom Class(Employee) to BasicDBObject
-		Gson gson = new Gson();
-		BasicDBObject obj = (BasicDBObject)JSON.parse(gson.toJson(tran));
-		coll.insert(obj);
-		//findEmployee(new BasicDBObject("id","1001"));
-		 */
-	}
 
 	private static final String COLLECTION_TRANS = "transactions";
 	private static final String COLLECTION_USERS = "users";
@@ -110,7 +67,7 @@ public class MongoDBManager implements DBManager {
 	}
 
 	@Override
-	public List<Transaction> retrieveHistoricTransactions(Transaction transaction, Date cutoff) {
+	public List<Transaction> retrieveHistoricTransactions(Transaction transaction) {
 		List<Transaction> result = new ArrayList<Transaction>();
 		
 		DBCollection coll = getDBCollection(COLLECTION_TRANS);
@@ -122,7 +79,7 @@ public class MongoDBManager implements DBManager {
 	          DBObject dbobj = cursor.next();
 
 	          Transaction t = (new Gson()).fromJson(dbobj.toString(), Transaction.class);
-	          if(t.getId().equals(transaction.getId())) {
+	          if(!t.getId().equals(transaction.getId())) {
 	        	  result.add(t);
 	          }
 	       }

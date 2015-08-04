@@ -1,6 +1,6 @@
 {  
    "id":"U1",
    "phone":"123456",
-   "numOfGoodTrans":5,
+   "exposure":5000,
    "totalSpend":1001
 }

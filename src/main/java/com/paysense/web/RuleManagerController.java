@@ -37,8 +37,6 @@ public class RuleManagerController {
 	@Value("${rules.velocity.interval}")
 	private int velocityInterval;
 	
-	private List<WhiteListObject> whiteList = null;
-    
     @RequestMapping(value = "/transact", method = RequestMethod.POST)
     public ResponseEntity<String> transact(@RequestBody Transaction tran) {
     
@@ -65,15 +63,14 @@ public class RuleManagerController {
     	
     	//populate historic transactions before the cutoff time
     	Date date = TimeUtil.parseDate(tran.getDateAsString());
-    	List<Transaction> histTrans = dbManager.retrieveHistoricTransactions(tran, TimeUtil.getCutoffDate(date,velocityInterval));
+    	//List<Transaction> histTrans = dbManager.retrieveHistoricTransactions(tran, TimeUtil.getCutoffDate(date,velocityInterval));
+    	List<Transaction> histTrans = dbManager.retrieveHistoricTransactions(tran);
     	container.setOldTransactions(histTrans);
  
     	logger.debug("histTrans size: "+histTrans.size());
     	
-		if(whiteList == null) {
-			whiteList = dbManager.retrieveWhiteList();
-		}
-
+		List<WhiteListObject> whiteList = dbManager.retrieveWhiteList();
+		
 		container.setWhiteList(whiteList);
     	
     	return container;

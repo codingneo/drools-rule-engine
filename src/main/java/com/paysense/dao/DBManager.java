@@ -1,6 +1,5 @@
 package com.paysense.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import com.paysense.entity.Merchant;
@@ -11,7 +10,7 @@ import com.paysense.entity.WhiteListObject;
 public interface DBManager {
 	
 	//retrieval 
-	public List<Transaction> retrieveHistoricTransactions(Transaction transaction, Date cutoff);
+	public List<Transaction> retrieveHistoricTransactions(Transaction transaction);
 	
 	public Transaction retreiveTransaction(String transactionId);
 	

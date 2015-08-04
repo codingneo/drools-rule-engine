@@ -11,3 +11,10 @@ db.white_list.insert(
 	   "value":"U1"
 	}
 );
+
+db.white_list.insert(
+	{  
+	   "type":"CUSTOMER",
+	   "value":"U3"
+	}
+);

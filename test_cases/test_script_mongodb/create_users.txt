@@ -2,7 +2,7 @@ db.users.insert(
 	{  
 	   "id":"U1",
 	   "phone":"5432167",
-	   "numOfGoodTrans":0,
+	   "exposure":5000,
 	   "totalSpend":0
 	}
 );
@@ -10,8 +10,17 @@ db.users.insert(
 db.users.insert(
 	{  
 	   "id":"U2",
-	   "numOfGoodTrans":0,
-	   "phone":"654321",
+	   "phone":"123456",
+	   "exposure":6000,
+	   "totalSpend":0
+	}
+);
+
+db.users.insert(
+	{  
+	   "id":"U3",
+	   "phone":"123654",
+	   "exposure":8000,
 	   "totalSpend":0
 	}
 );
