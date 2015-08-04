@@ -2,10 +2,5 @@
    "id":"T2",
    "amount":23,
    "dateAsString":"27/07/2015 10:00:30",
-   "user":{  
-      "id":"U1"
-   },
-   "merchant":{  
-      "id":"M1"
-   }
+   "userId":"U1"
 }

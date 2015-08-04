@@ -14,13 +14,13 @@ import com.paysense.entity.Merchant;
 import com.paysense.entity.Transaction;
 import com.paysense.entity.User;
 import com.paysense.util.TimeUtil;
+import com.paysense.util.WhiteListObject;
 
 /**
  * Temporary class to simulate Data records
  * 
  *
  */
-@Component
 public class TestDBManagerStub implements DBManager {
 	
 	private final Logger logger = Logger.getLogger(this.getClass());
@@ -56,9 +56,11 @@ public class TestDBManagerStub implements DBManager {
 		
 		for(Transaction t: transDB.values()){
 			Date date = TimeUtil.parseDate(t.getDateAsString());
+			/*
 			if(t.getUser().getId().equals(userId) && date.after(cutoff)){
 				result.add(t);
 			}
+			*/
 		}
 		
 		return result;
@@ -85,12 +87,14 @@ public class TestDBManagerStub implements DBManager {
 		
 		//if the transaction is eligible, increase total spend for the user
 		//increase number of good transactions of the user
+		/*
 		if(transaction.getStatus()==1){
 			User user = userDB.get(transaction.getUser().getId());
 			
 			user.setTotalSpend(user.getTotalSpend() + transaction.getAmount());
 			user.setNumOfGoodTrans(user.getNumOfGoodTrans() + 1);
 		}
+		*/
 	}
 
 
@@ -113,4 +117,9 @@ public class TestDBManagerStub implements DBManager {
 		
 	}
 
+	@Override
+	public List<WhiteListObject> retrieveWhiteList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

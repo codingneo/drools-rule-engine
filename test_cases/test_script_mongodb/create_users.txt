@@ -1,0 +1,17 @@
+db.users.insert(
+	{  
+	   "id":"U1",
+	   "phone":"123456",
+	   "numOfGoodTrans":0,
+	   "totalSpend":0
+	}
+);
+
+db.users.insert(
+	{  
+	   "id":"U2",
+	   "numOfGoodTrans":0,
+	   "phone":"654321",
+	   "totalSpend":0
+	}
+);

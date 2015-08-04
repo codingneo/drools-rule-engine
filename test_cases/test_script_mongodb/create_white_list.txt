@@ -1,0 +1,13 @@
+db.white_list.insert(
+	{  
+	   "type":"PHONE",
+	   "value":"123456"
+	}
+);
+
+db.white_list.insert(
+	{  
+	   "type":"CUSTOMER",
+	   "value":"U1"
+	}
+);

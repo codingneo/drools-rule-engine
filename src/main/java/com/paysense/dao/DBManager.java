@@ -6,6 +6,7 @@ import java.util.List;
 import com.paysense.entity.Merchant;
 import com.paysense.entity.Transaction;
 import com.paysense.entity.User;
+import com.paysense.util.WhiteListObject;
 
 public interface DBManager {
 	
@@ -17,6 +18,8 @@ public interface DBManager {
 	public User retreiveUser(String userId);
 	
 	public Merchant retreiveMerchant(String marchantId);
+	
+	public List<WhiteListObject> retrieveWhiteList();
 	
 	//update
 	public void insertTransaction(Transaction transaction);

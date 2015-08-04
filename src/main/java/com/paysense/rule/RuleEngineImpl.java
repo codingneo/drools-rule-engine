@@ -1,6 +1,7 @@
 package com.paysense.rule;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -12,10 +13,13 @@ import org.kie.api.builder.KieModule;
 import org.kie.api.builder.KieRepository;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.paysense.dao.DBManager;
 import com.paysense.entity.TranObjectContainer;
+import com.paysense.util.WhiteListObject;
 
 @Component
 public class RuleEngineImpl implements RuleEngine {
@@ -33,10 +37,15 @@ public class RuleEngineImpl implements RuleEngine {
 
 	@Value("${kiescanner.interval}")
 	private int kiescannerInterval;
+	
+	@Autowired
+	private DBManager dbManager;
 
 	private KieContainer kContainer;
 
 	private ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(3);
+	
+	private List<WhiteListObject> whiteList = null;
 
 	@Override
 	public int process(TranObjectContainer container) {
@@ -45,8 +54,15 @@ public class RuleEngineImpl implements RuleEngine {
 			kContainer = initKieContainer();
 			scheduledThreadPool.scheduleAtFixedRate(new InitKieContainerWorker(), kiescannerInterval, kiescannerInterval, TimeUnit.SECONDS);
 		}
+		
+		if(whiteList == null) {
+			whiteList = dbManager.retrieveWhiteList();
+		}
 
 		KieSession session = kContainer.newKieSession();
+		
+		session.setGlobal("whiteList", whiteList);
+		
 		session.insert(container);
 
 		session.fireAllRules();

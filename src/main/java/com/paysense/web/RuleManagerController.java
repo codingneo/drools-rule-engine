@@ -55,17 +55,15 @@ public class RuleManagerController {
     	TranObjectContainer container = new TranObjectContainer();
     	
     	//populate new transaction with latest user/merchant data
-    	User user = dbManager.retreiveUser(tran.getUser().getId());
-    	tran.setUser(user);
-    	
-    	Merchant merchant = dbManager.retreiveMerchant(tran.getMerchant().getId());
-    	tran.setMerchant(merchant);
+    	User user = dbManager.retreiveUser(tran.getUserId());
+    	//tran.setUser(user);
+    	container.setUser(user);
     	
     	container.setNewTransaction(tran);
     	
     	//populate historic transactions before the cutoff time
     	Date date = TimeUtil.parseDate(tran.getDateAsString());
-    	List<Transaction> histTrans = dbManager.retrieveHistoricTransactions(tran.getUser().getId(), TimeUtil.getCutoffDate(date,velocityInterval));
+    	List<Transaction> histTrans = dbManager.retrieveHistoricTransactions(tran.getUserId(), TimeUtil.getCutoffDate(date,velocityInterval));
     	container.setOldTransactions(histTrans);
  
     	logger.debug("histTrans size: "+histTrans.size());
