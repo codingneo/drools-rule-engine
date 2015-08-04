@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 
 import com.paysense.dao.DBManager;
 import com.paysense.entity.TranObjectContainer;
-import com.paysense.util.WhiteListObject;
 
 @Component
 public class RuleEngineImpl implements RuleEngine {
@@ -44,8 +43,6 @@ public class RuleEngineImpl implements RuleEngine {
 	private KieContainer kContainer;
 
 	private ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(3);
-	
-	private List<WhiteListObject> whiteList = null;
 
 	@Override
 	public int process(TranObjectContainer container) {
@@ -55,13 +52,7 @@ public class RuleEngineImpl implements RuleEngine {
 			scheduledThreadPool.scheduleAtFixedRate(new InitKieContainerWorker(), kiescannerInterval, kiescannerInterval, TimeUnit.SECONDS);
 		}
 		
-		if(whiteList == null) {
-			whiteList = dbManager.retrieveWhiteList();
-		}
-
 		KieSession session = kContainer.newKieSession();
-		
-		session.setGlobal("whiteList", whiteList);
 		
 		session.insert(container);
 

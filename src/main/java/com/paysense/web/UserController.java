@@ -1,5 +1,6 @@
 package com.paysense.web;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.paysense.dao.DBManager;
 import com.paysense.entity.User;
-
-import org.apache.log4j.Logger;
 
 @RestController
 public class UserController {

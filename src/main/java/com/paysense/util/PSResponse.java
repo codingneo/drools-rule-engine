@@ -2,7 +2,7 @@ package com.paysense.util;
 
 public enum PSResponse {
 
-	INIT(0, "INIT"), ELIGIBLE(1, "ELIGIBLE"), REVIEW(2, "REVIEW"), REJECT(3, "REJECT"), UNKNOWN(-1, "UNKNOWN");
+	REJECT(0, "REJECT"), ELIGIBLE(1, "ELIGIBLE"), REVIEW(2, "REVIEW"), UNKNOWN(-1, "UNKNOWN");
 
 	private int code;
 	private String name;

@@ -22,8 +22,8 @@ import com.mongodb.util.JSON;
 import com.paysense.entity.Merchant;
 import com.paysense.entity.Transaction;
 import com.paysense.entity.User;
+import com.paysense.entity.WhiteListObject;
 import com.paysense.util.PSResponse;
-import com.paysense.util.WhiteListObject;
 
 @Component
 public class MongoDBManager implements DBManager {
@@ -32,7 +32,6 @@ public class MongoDBManager implements DBManager {
 
 
 		//MongoCredential credential = MongoCredential.createCredential("", "ps", "".toCharArray());
-
 		
 		MongoClient mongoClient = new MongoClient(new ServerAddress("localhost", 27017));
 		
@@ -89,30 +88,33 @@ public class MongoDBManager implements DBManager {
 	@Value("${db.main.user.password}")
 	private String password;
 
-	private DB dbInstance = init();
+	private DB dbInstance;
 
-	private DB init() {
+	private DBCollection getDBCollection(String name) {
 
-		MongoClient mongoClient = null;
-
-		try {
-			MongoCredential credential = MongoCredential.createCredential(userName, dbName, password.toCharArray());
-
-			mongoClient = new MongoClient(new ServerAddress(dbHost, dbPort), Arrays.asList(credential));
-
-		} catch (UnknownHostException e) {
-			throw new RuntimeException(e);
+		if(dbInstance == null) {
+			MongoClient mongoClient = null;
+			try {
+				MongoCredential credential = MongoCredential.createCredential(userName, dbName, password.toCharArray());
+				mongoClient = new MongoClient(new ServerAddress(dbHost, dbPort), Arrays.asList(credential));
+				
+				//mongoClient = new MongoClient(new ServerAddress(dbHost, dbPort));
+	
+			} catch (UnknownHostException e) {
+				throw new RuntimeException(e);
+			}
+			dbInstance = mongoClient.getDB(dbName);
 		}
-		return mongoClient.getDB(dbName);
 
+		return dbInstance.getCollection(name);
 	}
 
 	@Override
-	public List<Transaction> retrieveHistoricTransactions(String userId, Date cutoff) {
+	public List<Transaction> retrieveHistoricTransactions(Transaction transaction, Date cutoff) {
 		List<Transaction> result = new ArrayList<Transaction>();
 		
-		DBCollection coll = dbInstance.getCollection(COLLECTION_TRANS);
-		BasicDBObject query = new BasicDBObject("userId",userId);
+		DBCollection coll = getDBCollection(COLLECTION_TRANS);
+		BasicDBObject query = new BasicDBObject("userId",transaction.getUserId());
 		DBCursor cursor = coll.find(query);
 
 	    try {
@@ -120,7 +122,7 @@ public class MongoDBManager implements DBManager {
 	          DBObject dbobj = cursor.next();
 
 	          Transaction t = (new Gson()).fromJson(dbobj.toString(), Transaction.class);
-	          if(t.getStatus() != PSResponse.INIT.getCode()) {
+	          if(t.getId().equals(transaction.getId())) {
 	        	  result.add(t);
 	          }
 	       }
@@ -133,7 +135,7 @@ public class MongoDBManager implements DBManager {
 
 	@Override
 	public Transaction retreiveTransaction(String transactionId) {
-		DBCollection coll = dbInstance.getCollection(COLLECTION_TRANS);
+		DBCollection coll = getDBCollection(COLLECTION_TRANS);
 		BasicDBObject query = new BasicDBObject("id",transactionId);
 	
 		DBObject tran = coll.findOne(query);
@@ -148,7 +150,7 @@ public class MongoDBManager implements DBManager {
 
 	@Override
 	public User retreiveUser(String userId) {
-		DBCollection coll = dbInstance.getCollection(COLLECTION_USERS);
+		DBCollection coll = getDBCollection(COLLECTION_USERS);
 		BasicDBObject query = new BasicDBObject("id",userId);
 	
 		DBObject user = coll.findOne(query);
@@ -169,7 +171,7 @@ public class MongoDBManager implements DBManager {
 
 	@Override
 	public void insertTransaction(Transaction transaction) {
-		DBCollection coll = dbInstance.getCollection(COLLECTION_TRANS);
+		DBCollection coll = getDBCollection(COLLECTION_TRANS);
 		BasicDBObject obj = (BasicDBObject)JSON.parse(new Gson().toJson(transaction));
 		
 		Transaction t = this.retreiveTransaction(transaction.getId());
@@ -184,7 +186,7 @@ public class MongoDBManager implements DBManager {
 	
 	@Override
 	public void updateUser(User user) {
-		DBCollection coll = dbInstance.getCollection(COLLECTION_USERS);
+		DBCollection coll = getDBCollection(COLLECTION_USERS);
 		
 		BasicDBObject searchQuery = new BasicDBObject().append("id", user.getId());
 
@@ -193,13 +195,13 @@ public class MongoDBManager implements DBManager {
 
 	@Override
 	public void clearTransactions() {
-		DBCollection coll = dbInstance.getCollection(COLLECTION_TRANS);
+		DBCollection coll = getDBCollection(COLLECTION_TRANS);
 		coll.drop();
 	}
 
 	@Override
 	public void resetUsers() {
-		DBCollection coll = dbInstance.getCollection(COLLECTION_USERS);
+		DBCollection coll = getDBCollection(COLLECTION_USERS);
 		DBCursor cursor = coll.find();
 
 	    try {
@@ -222,7 +224,7 @@ public class MongoDBManager implements DBManager {
 	public List<WhiteListObject> retrieveWhiteList() {
 		List<WhiteListObject> result = new ArrayList<WhiteListObject>();
 		
-		DBCollection coll = dbInstance.getCollection(COLLECTION_WHITE_LIST);
+		DBCollection coll = getDBCollection(COLLECTION_WHITE_LIST);
 	
 		DBCursor cursor = coll.find();
 

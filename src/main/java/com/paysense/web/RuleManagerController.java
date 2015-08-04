@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.paysense.dao.DBManager;
-import com.paysense.rule.RuleEngine;
-import com.paysense.util.PSResponse;
-import com.paysense.util.TimeUtil;
-import com.paysense.entity.Merchant;
 import com.paysense.entity.TranObjectContainer;
 import com.paysense.entity.Transaction;
 import com.paysense.entity.User;
+import com.paysense.entity.WhiteListObject;
+import com.paysense.rule.RuleEngine;
+import com.paysense.util.PSResponse;
+import com.paysense.util.TimeUtil;
 
 
 @RestController
@@ -36,6 +36,8 @@ public class RuleManagerController {
 	
 	@Value("${rules.velocity.interval}")
 	private int velocityInterval;
+	
+	private List<WhiteListObject> whiteList = null;
     
     @RequestMapping(value = "/transact", method = RequestMethod.POST)
     public ResponseEntity<String> transact(@RequestBody Transaction tran) {
@@ -56,17 +58,23 @@ public class RuleManagerController {
     	
     	//populate new transaction with latest user/merchant data
     	User user = dbManager.retreiveUser(tran.getUserId());
-    	//tran.setUser(user);
+    	
     	container.setUser(user);
     	
     	container.setNewTransaction(tran);
     	
     	//populate historic transactions before the cutoff time
     	Date date = TimeUtil.parseDate(tran.getDateAsString());
-    	List<Transaction> histTrans = dbManager.retrieveHistoricTransactions(tran.getUserId(), TimeUtil.getCutoffDate(date,velocityInterval));
+    	List<Transaction> histTrans = dbManager.retrieveHistoricTransactions(tran, TimeUtil.getCutoffDate(date,velocityInterval));
     	container.setOldTransactions(histTrans);
  
     	logger.debug("histTrans size: "+histTrans.size());
+    	
+		if(whiteList == null) {
+			whiteList = dbManager.retrieveWhiteList();
+		}
+
+		container.setWhiteList(whiteList);
     	
     	return container;
     }

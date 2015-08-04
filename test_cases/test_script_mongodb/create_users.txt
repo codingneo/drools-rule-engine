@@ -1,7 +1,7 @@
 db.users.insert(
 	{  
 	   "id":"U1",
-	   "phone":"123456",
+	   "phone":"5432167",
 	   "numOfGoodTrans":0,
 	   "totalSpend":0
 	}

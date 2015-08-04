@@ -6,12 +6,12 @@ import java.util.List;
 import com.paysense.entity.Merchant;
 import com.paysense.entity.Transaction;
 import com.paysense.entity.User;
-import com.paysense.util.WhiteListObject;
+import com.paysense.entity.WhiteListObject;
 
 public interface DBManager {
 	
 	//retrieval 
-	public List<Transaction> retrieveHistoricTransactions(String userId, Date cutoff);
+	public List<Transaction> retrieveHistoricTransactions(Transaction transaction, Date cutoff);
 	
 	public Transaction retreiveTransaction(String transactionId);
 	
