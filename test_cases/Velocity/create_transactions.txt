@@ -1,0 +1,49 @@
+db.white_list.insert(
+	{  
+	   "id":"T1",
+	   "amount":23,
+	   "dateAsString":"27/07/2015 10:00:00",
+	   "userId":"U1",
+	   "status":1
+	}
+);
+
+db.white_list.insert(
+	{  
+	   "id":"T2",
+	   "amount":23,
+	   "dateAsString":"27/07/2015 10:00:00",
+	   "userId":"U1",
+	   "status":1
+	}
+);
+
+db.white_list.insert(
+	{  
+	   "id":"T3",
+	   "amount":23,
+	   "dateAsString":"27/07/2015 10:00:00",
+	   "userId":"U1",
+	   "status":1
+	}
+);
+
+db.white_list.insert(
+	{  
+	   "id":"T4",
+	   "amount":23,
+	   "dateAsString":"27/07/2015 10:00:00",
+	   "userId":"U1",
+	   "status":1
+	}
+);
+
+db.white_list.insert(
+	{  
+	   "id":"T5",
+	   "amount":23,
+	   "dateAsString":"27/07/2015 10:00:00",
+	   "userId":"U1",
+	   "status":1
+	}
+);

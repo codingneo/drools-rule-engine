@@ -62,6 +62,10 @@ public class TransactionController {
     	//populate new transaction with latest user/merchant data
     	User user = dbManager.retreiveUser(tran.getUserId());
     	
+    	if(user==null) {
+    		throw new RuntimeException("User "+ tran.getUserId() + " does not exist!");
+    	}
+    	
     	container.setUser(user);
     	
     	container.setNewTransaction(tran);

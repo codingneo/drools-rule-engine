@@ -1,0 +1,6 @@
+db.white_list.drop();
+
+db.users.drop();
+
+db.transactions.drop();
+
