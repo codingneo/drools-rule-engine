@@ -1,0 +1,19 @@
+{
+	"merchant" : {
+		"api_key" : "abc123"
+	},
+	"app" : {
+		"package" : "com.example.app" 
+	},
+	"mobile" : {
+		"device_id" : "123abc"
+	},
+	"transaction" : {  
+	   "id":"T1",
+	   "amount":23,
+	   "dateAsString":"27/07/2015 10:00:00",
+	   "userId":"U1"
+	},
+	"datetime" : "YYYY-MM-DDTHH:MM:SS.00Z"
+}
+

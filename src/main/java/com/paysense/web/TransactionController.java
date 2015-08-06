@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.paysense.dao.DBManager;
+import com.paysense.entity.PaySenseTransaction;
 import com.paysense.entity.TranObjectContainer;
 import com.paysense.entity.Transaction;
 import com.paysense.entity.User;
@@ -24,7 +25,7 @@ import com.paysense.util.TimeUtil;
 
 
 @RestController
-public class RuleManagerController {
+public class TransactionController {
 	
 	private final Logger logger = Logger.getLogger(this.getClass());
 	
@@ -38,8 +39,12 @@ public class RuleManagerController {
 	private int velocityInterval;
 	
     @RequestMapping(value = "/transact", method = RequestMethod.POST)
-    public ResponseEntity<String> transact(@RequestBody Transaction tran) {
+    public ResponseEntity<String> transact(@RequestBody PaySenseTransaction psTran) {
     
+    	Transaction tran = psTran.getTransaction();
+    	
+    	logger.debug("***tran is: "+tran);
+    	
     	TranObjectContainer container = createTranContainer(tran);
     	
     	ruleEngine.process(container);
