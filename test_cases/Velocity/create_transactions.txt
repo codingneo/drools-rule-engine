@@ -1,49 +1,109 @@
-db.white_list.insert(
+db.transactions.insert(
 	{  
-	   "id":"T1",
+	   "id":"T8",
 	   "amount":23,
 	   "dateAsString":"27/07/2015 10:00:00",
-	   "userId":"U1",
+	   "userId":"U4",
 	   "status":1
 	}
 );
 
-db.white_list.insert(
+db.transactions.insert(
 	{  
-	   "id":"T2",
+	   "id":"T9",
 	   "amount":23,
 	   "dateAsString":"27/07/2015 10:00:00",
-	   "userId":"U1",
+	   "userId":"U4",
 	   "status":1
 	}
 );
 
-db.white_list.insert(
+db.transactions.insert(
 	{  
-	   "id":"T3",
+	   "id":"T10",
 	   "amount":23,
 	   "dateAsString":"27/07/2015 10:00:00",
-	   "userId":"U1",
+	   "userId":"U4",
 	   "status":1
 	}
 );
 
-db.white_list.insert(
+db.transactions.insert(
 	{  
-	   "id":"T4",
+	   "id":"T11",
 	   "amount":23,
 	   "dateAsString":"27/07/2015 10:00:00",
-	   "userId":"U1",
+	   "userId":"U4",
 	   "status":1
 	}
 );
 
-db.white_list.insert(
+db.transactions.insert(
 	{  
-	   "id":"T5",
+	   "id":"T12",
 	   "amount":23,
 	   "dateAsString":"27/07/2015 10:00:00",
-	   "userId":"U1",
+	   "userId":"U4",
+	   "status":1
+	}
+);
+
+db.transactions.insert(
+	{  
+	   "id":"T13",
+	   "amount":30,
+	   "dateAsString":"28/07/2015 09:00:00",
+	   "userId":"U5",
+	   "status":1
+	}
+);
+
+db.transactions.insert(
+	{  
+	   "id":"T14",
+	   "amount":60.5,
+	   "dateAsString":"28/07/2015 15:00:00",
+	   "userId":"U5",
+	   "status":0
+	}
+);
+
+db.transactions.insert(
+	{  
+	   "id":"T15",
+	   "amount":34.5,
+	   "dateAsString":"29/07/2015 16:30:00",
+	   "userId":"U5",
+	   "status":1
+	}
+);
+
+db.transactions.insert(
+	{  
+	   "id":"T16",
+	   "amount":55.5,
+	   "dateAsString":"01/08/2015 04:30:00",
+	   "userId":"U5",
+	   "status":1
+	}
+);
+
+db.transactions.insert(
+	{  
+	   "id":"T17",
+	   "amount":22.5,
+	   "dateAsString":"03/08/2015 06:30:00",
+	   "userId":"U5",
+	   "status":1
+	}
+);
+
+db.transactions.insert(
+	{  
+	   "id":"T18",
+	   "amount":105,
+	   "dateAsString":"03/08/2015 06:30:00",
+	   "userId":"U4",
 	   "status":1
 	}
 );
