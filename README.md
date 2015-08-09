@@ -2,7 +2,7 @@
 
 ##Steps to deploy changes:
 
-1. run "mvn clean package"
+1. run "mvn -s config/settings.xml clean package"
 
 2. copy rule-engine-0.1.0.jar to the server
 
